@@ -29,4 +29,22 @@ router.get('/:name', (req, res, next) => {
     }
 });
 
+router.patch('/:name', function(req, res, next) {
+    try {
+        let foundItem = Item.update(req.params.name, req.body);
+        return res.json({ item: foundItem });
+    } catch(err) {
+        next(err);
+    }
+});
+
+router.delete('/:name', function(req, res, next) {
+    try {
+        Item.remove(req.params.name);
+        return res.json({ message: 'Deleted' });
+    } catch(err) {
+        next(err);
+    }
+});
+
 module.exports = router;
